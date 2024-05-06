@@ -8,7 +8,7 @@ const player1 = {
     speed: 50
 };
 let player2Type = "human"; // Default to playing with people
-const botSpeed = 50; // Adjust bot speed as needed
+const botSpeed =25 ; // Adjust bot speed as needed
 let player2Y = canvas.height / 2;
 const ball = {
     x: canvas.width / 2,
@@ -148,6 +148,38 @@ document.getElementById('playWithComputer').addEventListener('click', function()
     startGame("computer");
 
 });
+
+const replayButton = document.getElementById('replayButton');
+
+// Function to start the game with the selected option
+function startGame(player2) {
+    player2Type = player2;
+    document.getElementById('menu').style.display = 'none';
+    replayButton.style.display = 'none'; // Hide replay button
+    gameEnded = false; // Reset game state
+    resetPositions(); // Reset player and ball positions
+    gameLoop();
+}
+
+// Function to reset player and ball positions
+function resetPositions() {
+    player1.y = canvas.height / 2;
+    player2Y = canvas.height / 2;
+    ball.x = canvas.width / 2;
+    ball.y = canvas.height / 2;
+}
+
+// Function to handle replay button click
+replayButton.addEventListener('click', function() {
+    startGame(player2Type); // Start game with the same player type
+});
+
+function endGame(losingSide) {
+    gameEnded = true;
+    alert("Game Over! " + losingSide + " loses.");
+    replayButton.style.display = 'block'; // Show replay button
+}
+
 
 
 drawMenu();
